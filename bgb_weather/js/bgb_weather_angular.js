@@ -29,14 +29,12 @@
 
                 $scope.loadWidget();
 
+                // reload widget when user changes location
                 $scope.reload = function() {
                     $scope.city = $scope.userLocation;
                     $scope.userLocation = '';
                     $scope.loadWidget();
                 };
-                //if ($scope.userLocation) {
-                //    $scope.reload();
-                //}
 
                 // convert celsius to fahrenheit
                 var convert2F = function(celsius) {
