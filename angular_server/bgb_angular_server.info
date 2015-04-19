@@ -1,0 +1,8 @@
+name = 'Angular server'
+description = 'Ctools plugin to serve content using Angular.js and Apache Solr'
+core = 7.x
+
+dependencies[] = ctools
+dependencies[] = panels
+
+files[] = js/bgb_angular_server.js
