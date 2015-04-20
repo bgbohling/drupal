@@ -5,8 +5,6 @@
  * @return array
  */
 function bgb_angular_server_home() {
-  //$content = 'This here is coming from a Drupal menu callback.  Next up, get Solr going, and replace this lame shit with the results of a Solr search';
-
   $server = search_api_server_load('solr'); // CHANGE THIS
   $index = search_api_index_load('index_1'); // CHANGE THIS
   $query = new SearchApiQuery($index);
