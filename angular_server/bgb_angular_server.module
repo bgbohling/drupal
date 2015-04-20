@@ -21,7 +21,7 @@ function bgb_angular_server_ctools_plugin_directory($module, $plugin) {
  */
 function bgb_angular_server_menu() {
   $items['home_page'] = array(
-    'page callback' => 'angular_home',
+    'page callback' => 'bgb_angular_server_home',
     'file' => 'bgb_angular_server.inc',
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
