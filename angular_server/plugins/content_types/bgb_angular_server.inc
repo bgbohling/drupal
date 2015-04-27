@@ -12,8 +12,13 @@ $plugin = array(
 
 // render callback
 function bgb_angular_server_block() {
+  // Add all JS files required for our server
+
   $path = drupal_get_path('module', 'bgb_angular_server');
+  $solstice = 'http://localhost/drupal-7.21/sites/all/lib/solstice/solstice.js';
+
   drupal_add_js('http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js');
+  drupal_add_js($solstice);
   drupal_add_js($path . '/js/bgb_angular_server.js');
   drupal_add_css($path . '/css/bgb_angular_server.css');
   $content = array(
