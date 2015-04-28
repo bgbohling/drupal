@@ -2,34 +2,23 @@
 
     Drupal.behaviors.angular_server = {
         attach: function(context, settings){
+
             var angularServerApp = angular.module('angularServerApp', ['solstice']),
-                solrServer = 'http://localhost:8983/solr',
-                $nodes = [];
+                solrServer = 'http://localhost:8983/solr';
             angularServerApp.config(function(SolsticeProvider) {
                 SolsticeProvider.setEndpoint('http://localhost:8983/solr');
             });
 
-            angularServerApp.scope = {
-                solrUrl: solrServer,
-                displayField: '=',
-                query: '&',
-                results: '&'
-            }
-
             angularServerApp.controller('angularServerController', function($scope, Solstice) {
-
-
                 Solstice.search({
-                    q: 'tm_body$value:"nostrud premo"',
-                    //fl: 'tm_title, tm_body$value',   // fields that will be returned
-                    //sort: 'title desc',
-                    rows: 20
+                    q: '*',
+                    fl: 'tm_title, tm_body$value, ss_url, ss_type, ds_changed',   // fields that will be returned
+                    //sort: 'ss_type desc',
+                    rows: 82
                 })
                     .then(function (data){
-                        // now that we've got data, we could, like, apply some Angular filters to it
                         console.log(data.data.response.docs);
                         $scope.results = data.data.response.docs;
-                        //console.log(data.data.response.docs);
                     });
             });
         }
