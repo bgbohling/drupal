@@ -14,7 +14,10 @@ $plugin = array(
 function bgb_angular_server_block() {
   // Add all JS files required for our server
   $types = node_type_get_names();
-  drupal_add_js(array('bgb_angular_server' => array('contentTypes' => $types)), 'setting');
+  $authors = _bgb_angular_server_get_authors();
+
+  drupal_add_js(array('bgb_angular_server' => array('contentTypes' => $types, 'authors' => $authors)), 'setting');
+  //drupal_add_js(array('bgb_angular_server' => array('authors' => $authors)), 'setting');
 
   $path = drupal_get_path('module', 'bgb_angular_server');
   $solstice = 'http://localhost/drupal-7.21/sites/all/lib/solstice/solstice.js';
@@ -33,5 +36,20 @@ function bgb_angular_server_block() {
   $block->id = 'bgb_angular_server_block';
 
   return $block;
+}
+
+function _bgb_angular_server_get_authors() {
+  $authors = array();
+  $result = db_query('SELECT DISTINCT uid FROM {node}');
+  $users = $result->fetchAll();
+  unset($users[0]);  // exclude anonymous
+  foreach ($users as $author) {
+    $user = user_load($author->uid);
+    $authors[] = array(
+      'uid' => $user->uid,
+      'username' =>$user->name,
+    );
+  }
+  return $authors;
 }
 
