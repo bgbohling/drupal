@@ -33,3 +33,23 @@ function bgb_angular_server_home() {
 
   return array('content'=>$content);
 }
+
+function bgb_angular_server_page() {
+  ctools_include('content');
+  // assemble params for ctools_content_render()
+  $type = 'bgb_angular_server';
+  $subtype = '';
+  $conf = NULL;
+  $keywords = $contexts = $args = array();
+
+  // get our data from the plugin (bgb_angular_server.inc)
+  $data = ctools_content_render($type, $subtype, $conf, $keywords, $args, $contexts);
+  // pass the plugin data to our .tpl.php file via hook_theme()
+  $content = theme('bgb_angular_server_block', $data->content);
+
+  $page['title'] = '';
+  $page['content'] = array(
+    '#markup' => $content,
+  );
+  return $page;
+}
