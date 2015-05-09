@@ -12,7 +12,7 @@ $plugin = array(
 
 // render callback
 function bgb_angular_server_block() {
-  // Add all JS files required for our server
+  // Add JS and CSS required for our server
   $types = node_type_get_names();
   $authors = _bgb_angular_server_get_authors();
 
@@ -26,12 +26,11 @@ function bgb_angular_server_block() {
   drupal_add_js($solstice);
   drupal_add_js($path . '/js/bgb_angular_server.js');
   drupal_add_css($path . '/css/bgb_angular_server.css');
-  $content = array(
-    '#theme' => 'angular_server',
-  );
 
+  // since it's Angular, all the interesting stuff will be happening in the block tpl.php file and Javascript
+  // but we've got to pass something along to the tpl.php
   $block = new stdClass();
-  $block->content = $content;
+  $block->content = array();
   $block->title = '';
   $block->id = 'bgb_angular_server_block';
 

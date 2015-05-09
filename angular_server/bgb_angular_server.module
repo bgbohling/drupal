@@ -20,13 +20,11 @@ function bgb_angular_server_ctools_plugin_directory($module, $plugin) {
  * Implements hook_menu()
  */
 function bgb_angular_server_menu() {
-  $items['home_page'] = array(
-    //'page callback' => 'bgb_angular_server_home',
+  $items['angular_server'] = array(
     'page callback' => 'bgb_angular_server_page',
     'file' => 'bgb_angular_server.inc',
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
-    //'delivery callback' => 'drupal_json_output',
   );
   return $items;
 }

@@ -24,12 +24,12 @@
                     rows: 1000
                 })
                     .then(function (data){
-                        //console.log(data.data.response.docs);
                         $scope.results = data.data.response.docs;
                     });
             });
 
             // we've got a big list of nodes, now provide some ways of filtering them
+            // note that the list of nodes in each chained filter is what's returned from the previous filter
             angularServerApp.filter('filterByType', function() {
               return function(nodes, type) {
                   var filtered = [];
