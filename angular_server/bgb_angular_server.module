@@ -1,0 +1,89 @@
+<?php
+
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_ctools_plugin_directory()
+ * @param $module
+ * @param $plugin
+ * @return string
+ */
+function bgb_angular_server_ctools_plugin_directory($module, $plugin) {
+  if (($module == 'ctools') && ($plugin == 'content_types')) {
+    return 'plugins/content_types';
+  }
+}
+
+/**
+ * Implements hook_menu()
+ */
+function bgb_angular_server_menu() {
+  $items['home_page'] = array(
+    //'page callback' => 'bgb_angular_server_home',
+    'page callback' => 'bgb_angular_server_page',
+    'file' => 'bgb_angular_server.inc',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+    //'delivery callback' => 'drupal_json_output',
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_theme()
+ * @return array
+ */
+function bgb_angular_server_theme() {
+  return array(
+    'bgb_angular_server_block' => array(
+      'render element' => 'data',
+      'template' => 'plugins/templates/angular_server'
+    )
+  );
+}
+
+/**
+ * Implements hook_block_info()
+ * @return array
+ */
+function bgb_angular_server_block_info() {
+  $blocks = array();
+  $blocks['bgb_angular_server_block'] = array(
+    'info' => t('Angular server block'),
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view()
+ * @param string $delta
+ * @return array
+ */
+function bgb_angular_server_block_view($delta = '') {
+  ctools_include('content');
+
+  $block = array();
+
+  switch ($delta) {
+    case 'bgb_angular_server_block':
+      // assemble params for ctools_content_render()
+      $type = 'bgb_angular_server';
+      $subtype = '';
+      $conf = NULL;
+      $keywords = $contexts = $args = array();
+
+      // get our data from the plugin (bgb_angular_server.inc)
+      $data = ctools_content_render($type, $subtype, $conf, $keywords, $args, $contexts);
+      // pass the plugin data to our .tpl.php file via hook_theme()
+      $content = theme('bgb_angular_server_block', $data->content);
+
+      $block['subject'] = '';
+      $block['content'] = array(
+        '#markup' => $content,
+      );
+      break;
+  }
+  return($block);
+}

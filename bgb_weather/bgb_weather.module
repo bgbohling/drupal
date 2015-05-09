@@ -1,0 +1,65 @@
+<?php
+
+/**
+* @file
+ *
+ *  bgb_weather.module
+ *
+ *  A simple weather widget implemented as a Ctools plugin, with Angular.js on the front end
+ *
+ */
+
+
+function bgb_weather_ctools_plugin_directory($module, $plugin) {
+  if (($module == 'ctools') && ($plugin == 'content_types')) {
+    return 'plugins/content_types';
+  }
+}
+
+function bgb_weather_theme() {
+  return array(
+    'bgb_weather_block' => array(
+      'render element' => 'data',
+      'template' => 'templates/weather_widget'
+    )
+  );
+}
+
+// make the plugin a block
+
+function bgb_weather_block_info() {
+  $blocks = array();
+  $blocks['bgb_weather_block'] = array(
+    'info' => t('BGB Weather block'),
+  );
+  return $blocks;
+}
+
+function bgb_weather_block_view($delta = '') {
+  ctools_include('content');
+
+  $block = array();
+
+  switch ($delta) {
+    case 'bgb_weather_block':
+      // assemble params for ctools_content_render()
+      $type = 'bgb_weather';
+      $subtype = '';
+      $conf = NULL;
+      $keywords = $contexts = $args = array();
+
+      // get our data from the plugin (bgb_weather.inc)
+      $data = ctools_content_render($type, $subtype, $conf, $keywords, $args, $contexts);
+
+      // pass the plugin data to our .tpl.php file via hook_theme()
+      $content = theme('bgb_weather_block', $data->content);
+
+      $block['subject'] = '';
+      $block['content'] = array(
+        '#markup' => $content,
+      );
+      break;
+  }
+  return($block);
+}
+

@@ -1,0 +1,15 @@
+div[class^="weather-"] {
+    font-family: Arial;
+}
+.weather-headline {
+    font-size: 1.2em;
+}
+
+.weather-icon {
+    width: 100%;
+    text-align: center;
+}
+
+#location-form {
+    margin-top: 1.2em;
+}

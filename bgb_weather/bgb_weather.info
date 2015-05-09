@@ -1,0 +1,6 @@
+name = 'BGB Weather Widget'
+description = 'A simple weather widget in Angular.js'
+core = 7.x
+
+dependencies[] = ctools
+dependencies[] = panels
