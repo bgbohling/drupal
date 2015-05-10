@@ -1,1 +1,1 @@
-A very simple server-type app, implemented as a CTools plugin, that displays a block of node titles using Solr to fetch an index of content and Angular to filter it.
+A very simple example Angular app, implemented as a CTools plugin.  It uses Solr to slurp in a list of nodes, then uses Angular filters to emulate Solr facets.  As-is, it gets nodes of all types and provides filtering on content type and author.  In real life, it would be more useful to get a more restricted list of types and filter on terms.
